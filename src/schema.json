@@ -1,0 +1,3824 @@
+{
+  "tables": [
+    {
+      "table_name": "users",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "registration_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "subscription_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "age",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "first_name",
+          "type": "string",
+          "semantic_tag": "first_name"
+        },
+        {
+          "name": "last_name",
+          "type": "string",
+          "semantic_tag": "last_name"
+        },
+        {
+          "name": "email_address",
+          "type": "string",
+          "semantic_tag": "email"
+        },
+        {
+          "name": "last_login",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "account_tier",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "total_logins",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "country_code",
+          "type": "categorical",
+          "semantic_tag": "country_code"
+        },
+        {
+          "name": "preferred_language",
+          "type": "categorical",
+          "semantic_tag": "language_code"
+        },
+        {
+          "name": "bio_text",
+          "type": "string",
+          "semantic_tag": "text_paragraph"
+        },
+        {
+          "name": "profile_picture_url",
+          "type": "string",
+          "semantic_tag": "url"
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "date_of_birth",
+          "type": "datetime",
+          "semantic_tag": "date_of_birth"
+        },
+        {
+          "name": "balance",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "transactions",
+      "columns": [
+        {
+          "name": "transaction_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "timestamp",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "transaction_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "currency",
+          "type": "categorical",
+          "semantic_tag": "currency_code"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "semantic_tag": "ipv4"
+        },
+        {
+          "name": "payment_method",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "processing_time_ms",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "merchant_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "card_last_four",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "billing_country",
+          "type": "categorical",
+          "semantic_tag": "country_code"
+        },
+        {
+          "name": "ip_address",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "fee_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "tax_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "clearance_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "authorization_code",
+          "type": "string",
+          "semantic_tag": "alphanumeric_code"
+        },
+        {
+          "name": "terminal_id",
+          "type": "identifier",
+          "semantic_tag": "terminal_code"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "products",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "category",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "price",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "semantic_tag": "ipv4"
+        },
+        {
+          "name": "brand",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "weight_kg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "stock_quantity",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "is_active",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "manufacturer",
+          "type": "string",
+          "semantic_tag": "company_name"
+        },
+        {
+          "name": "barcode",
+          "type": "string",
+          "semantic_tag": "sku_code"
+        },
+        {
+          "name": "sku",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "color",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "size",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "material",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "events",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "event_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "event_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "duration_seconds",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "platform",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "browser",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "os_version",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "screen_resolution",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "url_path",
+          "type": "string",
+          "semantic_tag": "url"
+        },
+        {
+          "name": "referrer",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "element_id",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "action_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "user_agent",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "session_timeout",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "is_error",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "load_time_ms",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "first_paint_ms",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "connection_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "devices",
+      "columns": [
+        {
+          "name": "device_id",
+          "type": "identifier",
+          "semantic_tag": "terminal_code"
+        },
+        {
+          "name": "activation_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "device_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "storage_capacity_gb",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "model_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "manufacturer",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "serial_number",
+          "type": "string",
+          "semantic_tag": "serial_code"
+        },
+        {
+          "name": "mac_address",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "ip_address",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "firmware_version",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "battery_level",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "last_ping",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "network_carrier",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "region_code",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "warranty_expiry",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "purchase_price",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "temperature_celsius",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "locations",
+      "columns": [
+        {
+          "name": "location_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "established_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "location_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "square_footage",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "address_line_1",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "address_line_2",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "semantic_tag": "city"
+        },
+        {
+          "name": "state_province",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "postal_code",
+          "type": "string",
+          "semantic_tag": "postcode"
+        },
+        {
+          "name": "country",
+          "type": "categorical",
+          "semantic_tag": "country_code"
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "semantic_tag": "latitude"
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "semantic_tag": "longitude"
+        },
+        {
+          "name": "manager_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "contact_email",
+          "type": "string",
+          "semantic_tag": "email"
+        },
+        {
+          "name": "phone_number",
+          "type": "string",
+          "semantic_tag": "phone_number"
+        },
+        {
+          "name": "max_capacity",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "is_open",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "last_renovation_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "sessions",
+      "columns": [
+        {
+          "name": "session_id",
+          "type": "identifier",
+          "semantic_tag": "uuid"
+        },
+        {
+          "name": "start_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "end_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "duration_minutes",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "device_category",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "traffic_source",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "landing_page",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "exit_page",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "pages_viewed",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "bounce_rate",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "is_conversion",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "channel_grouping",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "utm_source",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "utm_medium",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "utm_campaign",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "user_agent_summary",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "ip_range",
+          "type": "string",
+          "semantic_tag": "ipv4"
+        },
+        {
+          "name": "engagement_score",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "campaigns",
+      "columns": [
+        {
+          "name": "campaign_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "start_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "end_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "budget",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "campaign_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "objective",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "target_audience",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "channel",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "total_impressions",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "total_clicks",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "conversion_rate",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "cost_per_click",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "cost_per_acquisition",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "region",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "creative_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "promo_code",
+          "type": "string",
+          "semantic_tag": "alphanumeric_code"
+        },
+        {
+          "name": "success_metric",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "subscriptions",
+      "columns": [
+        {
+          "name": "subscription_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "start_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "end_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "plan_tier",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "monthly_fee",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "billing_cycle",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "payment_method",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "auto_renew",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "cancel_reason",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "trial_start",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "trial_end",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "discount_percentage",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "total_revenue",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "last_payment_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "next_billing_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "promotion_code",
+          "type": "string",
+          "semantic_tag": "alphanumeric_code"
+        },
+        {
+          "name": "features_enabled",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "tickets",
+      "columns": [
+        {
+          "name": "ticket_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "resolved_at",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "priority",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "category",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "semantic_tag": "ipv4"
+        },
+        {
+          "name": "resolution_notes",
+          "type": "string",
+          "semantic_tag": "text_paragraph"
+        },
+        {
+          "name": "time_to_resolution_hours",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "assigned_agent",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "department",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "contact_channel",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "customer_satisfaction_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "escalations_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "first_response_time_mins",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "interactions_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "tags",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "reviews",
+      "columns": [
+        {
+          "name": "review_id",
+          "type": "identifier",
+          "semantic_tag": "uuid"
+        },
+        {
+          "name": "submission_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "source_platform",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "review_title",
+          "type": "string",
+          "semantic_tag": "job_title"
+        },
+        {
+          "name": "review_body",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "is_verified_purchase",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "helpful_votes",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "reported_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "sentiment_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "language",
+          "type": "categorical",
+          "semantic_tag": "language_code"
+        },
+        {
+          "name": "author_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "author_location",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "response_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "response_body",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "moderation_action",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "tags",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "restaurant_orders",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "order_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "restaurant_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "customer_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "order_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "total_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "subtotal_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "tax_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "tip_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "delivery_fee",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "discount_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "payment_method",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "is_paid",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "special_instructions",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "estimated_prep_time_mins",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "actual_prep_time_mins",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "delivery_time_mins",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "driver_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "kitchen_station",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "item_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "promo_code",
+          "type": "string",
+          "semantic_tag": "alphanumeric_code"
+        },
+        {
+          "name": "customer_rating",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "feedback_comments",
+          "type": "string",
+          "semantic_tag": "text_paragraph"
+        },
+        {
+          "name": "cancellation_reason",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "refund_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "currency",
+          "type": "categorical",
+          "semantic_tag": "currency_code"
+        },
+        {
+          "name": "pos_terminal_id",
+          "type": "identifier",
+          "semantic_tag": "terminal_code"
+        },
+        {
+          "name": "cashier_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "table_number",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "party_size",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "loyalty_points_earned",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "weather_at_order",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "temperature_at_order",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_4",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_5",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_6",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        }
+      ]
+    },
+    {
+      "table_name": "esports_matches",
+      "columns": [
+        {
+          "name": "match_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "start_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "end_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "game_title",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "tournament_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "stage",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "format",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "team_a_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "team_b_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "team_a_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "team_b_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "winner_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "team_a_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "team_b_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "is_draw",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "duration_seconds",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "map_name",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "region",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "server_location",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "viewer_peak",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "viewer_average",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "total_prize_pool",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "currency",
+          "type": "categorical",
+          "semantic_tag": "currency_code"
+        },
+        {
+          "name": "caster_1_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "caster_2_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "mvp_player_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "first_blood_team_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "total_kills",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "total_assists",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "total_deaths",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "gold_difference_at_15",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "objectives_secured_a",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "objectives_secured_b",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "sponsor_brand",
+          "type": "string",
+          "semantic_tag": "company_name"
+        },
+        {
+          "name": "broadcast_language",
+          "type": "categorical",
+          "semantic_tag": "language_code"
+        },
+        {
+          "name": "patch_version",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_4",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        }
+      ]
+    },
+    {
+      "table_name": "media_streams",
+      "columns": [
+        {
+          "name": "stream_id",
+          "type": "identifier",
+          "semantic_tag": "uuid"
+        },
+        {
+          "name": "user_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "content_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "session_id",
+          "type": "identifier",
+          "semantic_tag": "uuid"
+        },
+        {
+          "name": "start_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "end_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "content_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "semantic_tag": "job_title"
+        },
+        {
+          "name": "genre",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "duration_watched_seconds",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "total_content_length",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "completion_percentage",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "device_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "os_family",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "browser_name",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "ip_address",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "country",
+          "type": "categorical",
+          "semantic_tag": "country_code"
+        },
+        {
+          "name": "region",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "isp_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "resolution",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "bitrate_kbps",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "buffering_events",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "total_buffer_duration_ms",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "average_latency_ms",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "dropped_frames",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "is_live",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "audio_language",
+          "type": "categorical",
+          "semantic_tag": "language_code"
+        },
+        {
+          "name": "subtitle_language",
+          "type": "categorical",
+          "semantic_tag": "language_code"
+        },
+        {
+          "name": "ad_breaks_shown",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "ad_revenue_generated",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "rating_given",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "added_to_watchlist",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "shared_on_social",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "playback_speed",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_4",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "custom_metric_5",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_6",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "fitness_workouts",
+      "columns": [
+        {
+          "name": "workout_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "user_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "device_id",
+          "type": "identifier",
+          "semantic_tag": "terminal_code"
+        },
+        {
+          "name": "start_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "end_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "activity_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "duration_minutes",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "distance_km",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "calories_burned",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "average_heart_rate",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "max_heart_rate",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "min_heart_rate",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "steps_taken",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "elevation_gain_meters",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "average_pace_min_km",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "average_speed_kmh",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "max_speed_kmh",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "cadence_spm",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "power_output_watts",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "vo2_max_estimate",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "training_effect_aerobic",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "training_effect_anaerobic",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "recovery_time_recommended_hrs",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "weather_condition",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "humidity_percentage",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "route_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "perceived_exertion",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "feeling_score",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "semantic_tag": "text_paragraph"
+        },
+        {
+          "name": "music_played",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "shoes_worn_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "hydration_ml",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "goal_achieved",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_4",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "custom_metric_5",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_6",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "ride_shares",
+      "columns": [
+        {
+          "name": "ride_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "rider_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "driver_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "vehicle_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "request_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "accept_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "pickup_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "dropoff_time",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "service_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "pickup_latitude",
+          "type": "number",
+          "semantic_tag": "latitude"
+        },
+        {
+          "name": "pickup_longitude",
+          "type": "number",
+          "semantic_tag": "longitude"
+        },
+        {
+          "name": "dropoff_latitude",
+          "type": "number",
+          "semantic_tag": "latitude"
+        },
+        {
+          "name": "dropoff_longitude",
+          "type": "number",
+          "semantic_tag": "longitude"
+        },
+        {
+          "name": "pickup_address",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "dropoff_address",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "city",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "estimated_distance_km",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "actual_distance_km",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "estimated_duration_mins",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "actual_duration_mins",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "base_fare",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "distance_fare",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "time_fare",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "surge_multiplier",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "tolls_fees",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "taxes",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "tip_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "total_fare",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "payment_method",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "currency",
+          "type": "categorical",
+          "semantic_tag": "currency_code"
+        },
+        {
+          "name": "rider_rating",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "driver_rating",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "cancellation_party",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "cancellation_reason",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "is_carpool",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "passengers_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        }
+      ]
+    },
+    {
+      "table_name": "warehouse_inventory",
+      "columns": [
+        {
+          "name": "inventory_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "warehouse_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "product_sku",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "category",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "last_updated",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "quantity_on_hand",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "quantity_allocated",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "quantity_available",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "quantity_on_order",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "reorder_point",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "reorder_quantity",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "unit_cost",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "total_value",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "currency",
+          "type": "categorical",
+          "semantic_tag": "currency_code"
+        },
+        {
+          "name": "supplier_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "supplier_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "lead_time_days",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "location_aisle",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "location_rack",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "location_bin",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "batch_number",
+          "type": "string",
+          "semantic_tag": "alphanumeric_code"
+        },
+        {
+          "name": "expiration_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "manufacture_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "condition",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "weight_per_unit_kg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "volume_per_unit_m3",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "is_hazardous",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "temperature_controlled",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "min_temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "max_temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "last_audit_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "audit_discrepancy",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "auditor_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "turnover_rate",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "seasonality_index",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_4",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "custom_metric_5",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "mortgage_applications",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "applicant_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "submission_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "loan_amount_requested",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "loan_term_years",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "loan_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "interest_rate_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "property_value",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "down_payment",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "ltv_ratio",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "property_address",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "property_city",
+          "type": "string",
+          "semantic_tag": "city"
+        },
+        {
+          "name": "property_state",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "property_zip",
+          "type": "string",
+          "semantic_tag": "postcode"
+        },
+        {
+          "name": "property_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "property_usage",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "applicant_credit_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "co_applicant_credit_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "annual_income",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "monthly_debt",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "dti_ratio",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "employment_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "years_at_job",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "employer_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "liquid_assets",
+          "type": "number",
+          "semantic_tag": "foreign_key_id"
+        },
+        {
+          "name": "application_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "underwriter_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "decision_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "denial_reason",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "approved_loan_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "approved_interest_rate",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "closing_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "closing_costs",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "pmi_required",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "pmi_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "escrow_required",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "origination_fee",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "loan_officer_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "branch_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "custom_notes",
+          "type": "string",
+          "semantic_tag": "text_paragraph"
+        }
+      ]
+    },
+    {
+      "table_name": "satellite_telemetry",
+      "columns": [
+        {
+          "name": "telemetry_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "satellite_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "timestamp",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "orbit_number",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "semantic_tag": "latitude"
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "semantic_tag": "longitude"
+        },
+        {
+          "name": "altitude_km",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "velocity_kms",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "inclination_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "eccentricity",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "right_ascension_node_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "argument_of_perigee_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "true_anomaly_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "battery_level_percent",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "battery_temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "solar_panel_voltage",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "solar_panel_current",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "power_consumption_w",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "cpu_utilization_percent",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "memory_utilization_percent",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "storage_available_mb",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "transmitter_temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "receiver_temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "attitude_pitch_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "attitude_roll_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "attitude_yaw_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "reaction_wheel_rpm_x",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "reaction_wheel_rpm_y",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "reaction_wheel_rpm_z",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "thruster_fuel_remaining_kg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "sensor_payload_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "downlink_signal_strength_db",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "uplink_signal_strength_db",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "bit_error_rate",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "ground_station_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "anomaly_flag",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "error_code",
+          "type": "string",
+          "semantic_tag": "alphanumeric_code"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        }
+      ]
+    },
+    {
+      "table_name": "weather_readings",
+      "columns": [
+        {
+          "name": "reading_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "station_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "timestamp",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "semantic_tag": "latitude"
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "semantic_tag": "longitude"
+        },
+        {
+          "name": "elevation_m",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "dew_point_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "relative_humidity_percent",
+          "type": "number",
+          "semantic_tag": "foreign_key_id"
+        },
+        {
+          "name": "wind_speed_kmh",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "wind_direction_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "wind_gust_kmh",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "barometric_pressure_hpa",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "pressure_tendency",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "precipitation_1h_mm",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "precipitation_24h_mm",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "snow_depth_cm",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "visibility_km",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "cloud_cover_percent",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "cloud_base_height_m",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "solar_radiation_wm2",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "uv_index",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "air_quality_index",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "pm25_concentration",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "pm10_concentration",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "ozone_concentration",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "soil_temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "soil_moisture_percent",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "station_battery_v",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "internal_temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "data_quality_flag",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "maintenance_mode",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "firmware_version",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "transmission_latency_ms",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "custom_metric_4",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_5",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_6",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        }
+      ]
+    },
+    {
+      "table_name": "social_posts",
+      "columns": [
+        {
+          "name": "post_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "author_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "platform",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "post_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "text_content",
+          "type": "string",
+          "semantic_tag": "text_paragraph"
+        },
+        {
+          "name": "language",
+          "type": "categorical",
+          "semantic_tag": "language_code"
+        },
+        {
+          "name": "has_media",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "media_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "media_url",
+          "type": "string",
+          "semantic_tag": "url"
+        },
+        {
+          "name": "video_duration_seconds",
+          "type": "number",
+          "semantic_tag": "foreign_key_id"
+        },
+        {
+          "name": "is_sponsored",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "sponsor_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "views_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "likes_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "comments_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "shares_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "saves_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "clicks_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "engagement_rate",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "reach",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "impressions",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "hashtags",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "mentions",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "location_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "semantic_tag": "latitude"
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "semantic_tag": "longitude"
+        },
+        {
+          "name": "sentiment_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "toxicity_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "is_flagged",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "moderation_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "device_used",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "app_version",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "client_ip",
+          "type": "string",
+          "semantic_tag": "ipv4"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "custom_metric_4",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_5",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "vehicle_telematics",
+      "columns": [
+        {
+          "name": "telemetry_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "vehicle_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "driver_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "timestamp",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "trip_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "semantic_tag": "latitude"
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "semantic_tag": "longitude"
+        },
+        {
+          "name": "speed_kmh",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "speed_limit_kmh",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "heading_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "elevation_m",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "engine_rpm",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "engine_load_percent",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "coolant_temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "fuel_level_percent",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "fuel_consumption_rate_lh",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "battery_voltage",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "throttle_position_percent",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "brake_pedal_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "steering_angle_deg",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "acceleration_x_g",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "acceleration_y_g",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "acceleration_z_g",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "harsh_braking_event",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "harsh_acceleration_event",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "harsh_cornering_event",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "seatbelt_fastened",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "airbag_deployed",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "check_engine_light",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "dtc_codes",
+          "type": "string",
+          "semantic_tag": "alphanumeric_code"
+        },
+        {
+          "name": "odometer_km",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "tire_pressure_fl_psi",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "tire_pressure_fr_psi",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "tire_pressure_rl_psi",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "tire_pressure_rr_psi",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "outside_temperature_c",
+          "type": "number",
+          "semantic_tag": "foreign_key_id"
+        },
+        {
+          "name": "wiper_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "headlight_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        }
+      ]
+    },
+    {
+      "table_name": "smart_home_events",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "home_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "device_id",
+          "type": "identifier",
+          "semantic_tag": "terminal_code"
+        },
+        {
+          "name": "user_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "timestamp",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "device_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "room_name",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "event_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "event_value_num",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "event_value_str",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "previous_state",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "new_state",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "trigger_source",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "routine_name",
+          "type": "string",
+          "semantic_tag": "person_name"
+        },
+        {
+          "name": "power_usage_w",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "battery_level_percent",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "signal_strength_dbm",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "connection_type",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "firmware_version",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "ip_address",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "mac_address",
+          "type": "string",
+          "semantic_tag": "street_address"
+        },
+        {
+          "name": "temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "humidity_percent",
+          "type": "number",
+          "semantic_tag": "foreign_key_id"
+        },
+        {
+          "name": "illuminance_lux",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "motion_detected",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "door_window_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "lock_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "camera_clip_url",
+          "type": "string",
+          "semantic_tag": "url"
+        },
+        {
+          "name": "alarm_status",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "hvac_mode",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "target_temperature_c",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "fan_speed",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "air_quality_index",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "water_leak_detected",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "smoke_detected",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "co_detected",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "custom_metric_4",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        }
+      ]
+    },
+    {
+      "table_name": "course_completions",
+      "columns": [
+        {
+          "name": "completion_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "student_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "course_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "instructor_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "enrollment_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "completion_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "category",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "difficulty_level",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "course_price",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "amount_paid",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "currency",
+          "type": "categorical",
+          "semantic_tag": "currency_code"
+        },
+        {
+          "name": "total_modules",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "modules_completed",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "total_videos",
+          "type": "number",
+          "semantic_tag": "foreign_key_id"
+        },
+        {
+          "name": "videos_watched",
+          "type": "number",
+          "semantic_tag": "foreign_key_id"
+        },
+        {
+          "name": "total_video_duration_mins",
+          "type": "number",
+          "semantic_tag": "foreign_key_id"
+        },
+        {
+          "name": "time_spent_mins",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "quiz_count",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "average_quiz_score",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "final_exam_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "passing_score",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "is_passed",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "certificate_issued",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "certificate_url",
+          "type": "string",
+          "semantic_tag": "url"
+        },
+        {
+          "name": "student_rating",
+          "type": "number",
+          "semantic_tag": "rating_numeric"
+        },
+        {
+          "name": "student_review",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "device_used",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "browser",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "country",
+          "type": "categorical",
+          "semantic_tag": "country_code"
+        },
+        {
+          "name": "language",
+          "type": "categorical",
+          "semantic_tag": "language_code"
+        },
+        {
+          "name": "referral_source",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "promo_code",
+          "type": "string",
+          "semantic_tag": "alphanumeric_code"
+        },
+        {
+          "name": "is_corporate_sponsor",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "corporate_tenant_id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "last_accessed_date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "days_to_complete",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_1",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        },
+        {
+          "name": "custom_metric_2",
+          "type": "string",
+          "semantic_tag": "generic_string"
+        },
+        {
+          "name": "custom_metric_3",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "custom_metric_4",
+          "type": "number",
+          "semantic_tag": "generic_numeric"
+        }
+      ]
+    }
+  ]
+}
