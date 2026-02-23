@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 
 # Databricks Pure-Python Environment Override
 try:
-    # Databricks exec() environment often misses the local path in sys.path
+    # Databricks exec() environment drops __file__, so we use os.getcwd()
     import sys
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    script_dir = os.getcwd()
     if script_dir not in sys.path:
         sys.path.append(script_dir)
         
