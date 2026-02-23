@@ -7,26 +7,14 @@ import sys
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file if present
-load_dotenv()
-
-# Override from postgres.yaml if present (Databricks custom config)
+# Databricks Pure-Python Environment Override
 try:
-    import yaml
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    yaml_path = os.path.join(script_dir, "postgres.yaml")
-    
-    if os.path.exists(yaml_path):
-        with open(yaml_path, "r") as f:
-            yaml_config = yaml.safe_load(f)
-            if yaml_config and "env" in yaml_config:
-                for item in yaml_config["env"]:
-                    if "name" in item and "value" in item:
-                        os.environ[item["name"]] = str(item["value"])
-    else:
-        print(f"Warning: Could not find {yaml_path}")
-except Exception as e:
-    print(f"Failed parsing postgres.yaml: {e}")
+    from databricks_env import POSTGRES_URI
+    if POSTGRES_URI:
+        os.environ["POSTGRES_URI"] = POSTGRES_URI
+        print("Successfully loaded POSTGRES_URI from databricks_env.py")
+except ImportError:
+    print("Warning: databricks_env.py not found. Falling back to default os.environ logic.")
 
 # Fix for Windows PySpark worker 'Python not found' errors
 os.environ["PYSPARK_PYTHON"] = sys.executable
