@@ -9,6 +9,12 @@ from dotenv import load_dotenv
 
 # Databricks Pure-Python Environment Override
 try:
+    # Databricks exec() environment often misses the local path in sys.path
+    import sys
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    if script_dir not in sys.path:
+        sys.path.append(script_dir)
+        
     from databricks_env import POSTGRES_URI
     if POSTGRES_URI:
         os.environ["POSTGRES_URI"] = POSTGRES_URI
