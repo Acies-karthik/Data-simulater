@@ -11,18 +11,18 @@ class DataQualityInjector:
     def generate_financial_numeric(n):
         """Generates realistic normal distributions for financials."""
         vals = np.random.normal(loc=50.0, scale=15.0, size=n)
-        return [max(1.0, round(v, 2)) for v in vals]
+        return np.array([max(1.0, round(v, 2)) for v in vals], dtype=np.float64)
         
     @staticmethod
     def generate_age_numeric(n):
         """Generates realistic normal distributions for age."""
         vals = np.random.normal(loc=35, scale=10, size=n)
-        return [max(18, min(100, int(v))) for v in vals]
+        return np.array([max(18, min(100, int(v))) for v in vals], dtype=np.int64)
         
     @staticmethod
     def generate_rating_numeric(n):
         """Generates skewed reviews/ratings."""
-        return np.random.choice([1, 2, 3, 4, 5], p=[0.05, 0.05, 0.1, 0.4, 0.4], size=n)
+        return np.random.choice([1, 2, 3, 4, 5], p=[0.05, 0.05, 0.1, 0.4, 0.4], size=n).astype(np.int64)
         
     @staticmethod
     def generate_status_category(n):

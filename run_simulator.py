@@ -6,6 +6,7 @@ import time
 import sys
 import os
 from dotenv import load_dotenv
+load_dotenv()
 
 # Databricks Pure-Python Environment Override
 try:
@@ -36,6 +37,7 @@ from src.memory import Memory
 from src.connectors.file_connector import FileConnector
 from src.connectors.postgres_connector import PostgresConnector
 from src.connectors.snowflake_connector import SnowflakeConnector
+from src.connectors.oci_adb_connector import OciAdbConnector
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -46,6 +48,8 @@ def get_connector(target: str, output_dir: str = "output_data", s3_bucket: str =
         return PostgresConnector()
     elif target == "snowflake":
         return SnowflakeConnector()
+    elif target == "oci_adb":
+        return OciAdbConnector()
     elif target in ["file", "csv", "parquet"]:
         fmt = "csv" if target == "csv" else "parquet"
         
@@ -88,12 +92,13 @@ def run_phase_a(spark: SparkSession, target: str, initial_rows: int = 1000, spec
     memory = Memory()
     memory.clear()
     
-    engine = SimulatorEngine(spark=spark, memory=memory)
+    schema_path = spark.conf.get("spark.custom.schemaPath", "src/schema.json")
+    engine = SimulatorEngine(spark=spark, memory=memory, schema_path=schema_path)
     connector = get_connector(target)
     
     start_time = datetime(2025, 1, 1, 0, 0, 0)
     
-    tables = get_tables()
+    tables = get_tables(schema_path)
     if specific_table:
         if specific_table not in tables:
             raise ValueError(f"Table '{specific_table}' not found in schema blueprint.")
@@ -137,10 +142,11 @@ def run_phase_b(spark: SparkSession, target: str, incremental_rows: int = 50):
         logger.error("Memory state is empty! You must run Phase A (init) before Phase B.")
         return
         
-    engine = SimulatorEngine(spark=spark, memory=memory)
+    schema_path = spark.conf.get("spark.custom.schemaPath", "src/schema.json")
+    engine = SimulatorEngine(spark=spark, memory=memory, schema_path=schema_path)
     connector = get_connector(target)
     
-    tables = get_tables()
+    tables = get_tables(schema_path)
     
     connector.connect()
     try:
@@ -177,7 +183,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Enterprise Synthetic PySpark Data Simulator")
     parser.add_argument("--mode", choices=["init", "stream"], required=True, 
                         help="'init' for Phase A (Big Bang) or 'stream' for Phase B (Incremental).")
-    parser.add_argument("--target", choices=["file", "parquet", "csv", "postgres", "snowflake"], default="file",
+    parser.add_argument("--target", choices=["file", "parquet", "csv", "postgres", "snowflake", "oci_adb"], default="file",
                         help="Target destination for output data.")
     parser.add_argument("--rows", type=int, default=None,
                         help="Number of rows per table. Default: 1000 for init, 50 for stream.")
@@ -187,11 +193,15 @@ if __name__ == "__main__":
                         help="Optional S3 bucket name (e.g., 'my-data-lake-bucket'). If provided, overrides output-dir to use s3a://")
     parser.add_argument("--table", type=str, default=None,
                         help="Specify a single table to generate (e.g., users). Default is all tables.")
+    parser.add_argument("--schema", type=str, default="src/schema.json",
+                        help="Path to schema JSON. Default: src/schema.json")
                         
     args = parser.parse_args()
     
     logger.info("Initializing PySpark Execution Context...")
     spark_session = init_spark()
+    # Hack to pass schema path via Spark conf since functions don't accept it easily
+    spark_session.conf.set("spark.custom.schemaPath", args.schema)
     
     # Global connector instantiation
     global_connector = get_connector(args.target, output_dir=args.output_dir, s3_bucket=args.s3_bucket)

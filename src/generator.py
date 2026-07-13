@@ -17,11 +17,11 @@ class SimulatorEngine:
     for infinite horizontal scalability on Databricks.
     """
 
-    def __init__(self, spark: SparkSession, seed: int = 42, memory: Memory = None):
+    def __init__(self, spark: SparkSession, seed: int = 42, memory: Memory = None, schema_path: str = "src/schema.json"):
         self.spark = spark
         self.seed = seed
         self.memory = memory if memory else Memory()
-        self.schema_blueprint = self._load_schema()
+        self.schema_blueprint = self._load_schema(schema_path)
 
     def _load_schema(self, path="src/schema.json"):
         with open(path, "r") as f:
@@ -58,7 +58,7 @@ class SimulatorEngine:
         # Add other cross-column logic here as needed
         return df
 
-    def generate_table_batch(self, table_name: str, num_rows: int, start_time: datetime, time_increment_seconds: int = 60, anomaly_rate: float = 0.005):
+    def generate_table_batch(self, table_name: str, num_rows: int, start_time: datetime, time_increment_seconds: int = 60, anomaly_rate: float = 0.0):
         """
         Generates a Spark DataFrame of synthetic rows for a specific table.
         Uses `mapInPandas` for vectorized Python execution across Spark workers.
@@ -103,7 +103,7 @@ class SimulatorEngine:
                     tag = col.get("semantic_tag", "generic_string")
                     
                     if tag == "auto_increment_id":
-                        out_data[col_name] = [base_id + idx for idx in row_indices]
+                        out_data[col_name] = [str(base_id + idx) for idx in row_indices]
                         
                     elif tag == "uuid":
                         # We use memory auto increment combined into a string to guarantee 

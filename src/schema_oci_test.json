@@ -1,0 +1,54 @@
+{
+  "tables": [
+    {
+      "table_name": "users",
+      "columns": [
+        {"name": "user_id", "type": "identifier", "semantic_tag": "auto_increment_id"},
+        {"name": "first_name", "type": "string", "semantic_tag": "first_name"},
+        {"name": "last_name", "type": "string", "semantic_tag": "last_name"},
+        {"name": "email", "type": "string", "semantic_tag": "email"},
+        {"name": "signup_date", "type": "datetime", "semantic_tag": "past_datetime"}
+      ]
+    },
+    {
+      "table_name": "orders",
+      "columns": [
+        {"name": "order_id", "type": "identifier", "semantic_tag": "auto_increment_id"},
+        {"name": "user_id", "type": "identifier", "semantic_tag": "foreign_key_id"},
+        {"name": "amount", "type": "number", "semantic_tag": "financial_numeric"},
+        {"name": "status", "type": "categorical", "semantic_tag": "status_category"},
+        {"name": "order_date", "type": "datetime", "semantic_tag": "past_datetime"}
+      ]
+    },
+    {
+      "table_name": "products",
+      "columns": [
+        {"name": "product_id", "type": "identifier", "semantic_tag": "auto_increment_id"},
+        {"name": "name", "type": "string", "semantic_tag": "product_name"},
+        {"name": "price", "type": "number", "semantic_tag": "financial_numeric"},
+        {"name": "category", "type": "categorical", "semantic_tag": "generic_category"},
+        {"name": "created_at", "type": "datetime", "semantic_tag": "past_datetime"}
+      ]
+    },
+    {
+      "table_name": "transactions",
+      "columns": [
+        {"name": "transaction_id", "type": "identifier", "semantic_tag": "auto_increment_id"},
+        {"name": "order_id", "type": "identifier", "semantic_tag": "foreign_key_id"},
+        {"name": "amount", "type": "number", "semantic_tag": "financial_numeric"},
+        {"name": "currency", "type": "categorical", "semantic_tag": "currency"},
+        {"name": "transaction_date", "type": "datetime", "semantic_tag": "past_datetime"}
+      ]
+    },
+    {
+      "table_name": "sessions",
+      "columns": [
+        {"name": "session_id", "type": "identifier", "semantic_tag": "auto_increment_id"},
+        {"name": "user_id", "type": "identifier", "semantic_tag": "foreign_key_id"},
+        {"name": "ip_address", "type": "string", "semantic_tag": "ip_address"},
+        {"name": "device_type", "type": "categorical", "semantic_tag": "generic_category"},
+        {"name": "login_time", "type": "datetime", "semantic_tag": "past_datetime"}
+      ]
+    }
+  ]
+}
