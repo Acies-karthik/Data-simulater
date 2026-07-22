@@ -6,22 +6,9 @@ import time
 import sys
 import os
 from dotenv import load_dotenv
-load_dotenv()
 
-# Databricks Pure-Python Environment Override
-try:
-    # Databricks exec() environment drops __file__, so we use os.getcwd()
-    import sys
-    script_dir = os.getcwd()
-    if script_dir not in sys.path:
-        sys.path.append(script_dir)
-        
-    from databricks_env import POSTGRES_URI
-    if POSTGRES_URI:
-        os.environ["POSTGRES_URI"] = POSTGRES_URI
-        print("Successfully loaded POSTGRES_URI from databricks_env.py")
-except ImportError:
-    print("Warning: databricks_env.py not found. Falling back to default os.environ logic.")
+# Load credentials from single central .env file
+load_dotenv()
 
 # Fix for Windows PySpark worker 'Python not found' errors
 os.environ["PYSPARK_PYTHON"] = sys.executable
