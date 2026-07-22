@@ -37,6 +37,7 @@ from src.memory import Memory
 from src.connectors.file_connector import FileConnector
 from src.connectors.postgres_connector import PostgresConnector
 from src.connectors.snowflake_connector import SnowflakeConnector
+from src.connectors.oracle_connector import OracleConnector
 from src.connectors.oci_adb_connector import OciAdbConnector
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -48,6 +49,8 @@ def get_connector(target: str, output_dir: str = "output_data", s3_bucket: str =
         return PostgresConnector()
     elif target == "snowflake":
         return SnowflakeConnector()
+    elif target == "oracle":
+        return OracleConnector()
     elif target == "oci_adb":
         return OciAdbConnector()
     elif target in ["file", "csv", "parquet"]:
@@ -83,7 +86,7 @@ def init_spark():
         logger.error(f"Failed to initialize PySpark: {str(e)}\nPlease make sure PySpark is correctly installed.")
         raise
 
-def run_phase_a(spark: SparkSession, target: str, initial_rows: int = 1000, specific_table: str = None):
+def run_phase_a(spark: SparkSession, targets: list[str], initial_rows: int = 1000, specific_table: str = None, output_dir: str = "output_data", s3_bucket: str = None):
     """
     Phase A: The Big Bang.
     """
@@ -94,7 +97,7 @@ def run_phase_a(spark: SparkSession, target: str, initial_rows: int = 1000, spec
     
     schema_path = spark.conf.get("spark.custom.schemaPath", "src/schema.json")
     engine = SimulatorEngine(spark=spark, memory=memory, schema_path=schema_path)
-    connector = get_connector(target)
+    connectors = [get_connector(t, output_dir=output_dir, s3_bucket=s3_bucket) for t in targets]
     
     start_time = datetime(2025, 1, 1, 0, 0, 0)
     
@@ -106,7 +109,9 @@ def run_phase_a(spark: SparkSession, target: str, initial_rows: int = 1000, spec
         
     logger.info(f"Loaded {len(tables)} tables from blueprint. Generating independently.")
     
-    connector.connect()
+    for connector in connectors:
+        connector.connect()
+        
     try:
         for table_name in tables:
             logger.info(f"Generating {initial_rows} rows for {table_name}...")
@@ -119,18 +124,21 @@ def run_phase_a(spark: SparkSession, target: str, initial_rows: int = 1000, spec
                 time_increment_seconds=600
             )
             
-            # Persist to target using PySpark native tools (Partitioned by initial load date)
+            # Persist to all targets using PySpark native tools
             partition_date = start_time.strftime("%Y-%m-%d")
-            connector.push_dataframe(df, table_name, mode="replace", partition_date=partition_date)
+            for connector in connectors:
+                connector.push_dataframe(df, table_name, mode="replace", partition_date=partition_date)
+            
                      
     finally:
-        connector.close()
+        for connector in connectors:
+            connector.close()
         memory.save()
         
     logger.info("Phase A Complete. State saved in catalog.json.")
 
 
-def run_phase_b(spark: SparkSession, target: str, incremental_rows: int = 50):
+def run_phase_b(spark: SparkSession, targets: list[str], incremental_rows: int = 50, output_dir: str = "output_data", s3_bucket: str = None):
     """
     Phase B: The Heartbeat.
     Reads current state from memory and generates new incremental rows via PySpark.
@@ -144,11 +152,13 @@ def run_phase_b(spark: SparkSession, target: str, incremental_rows: int = 50):
         
     schema_path = spark.conf.get("spark.custom.schemaPath", "src/schema.json")
     engine = SimulatorEngine(spark=spark, memory=memory, schema_path=schema_path)
-    connector = get_connector(target)
+    connectors = [get_connector(t, output_dir=output_dir, s3_bucket=s3_bucket) for t in targets]
     
     tables = get_tables(schema_path)
     
-    connector.connect()
+    for connector in connectors:
+        connector.connect()
+        
     try:
         for table_name in tables:
             table_state = memory.get_table_state(table_name)
@@ -168,12 +178,14 @@ def run_phase_b(spark: SparkSession, target: str, incremental_rows: int = 50):
                 time_increment_seconds=30
             )
             
-            # Push incrementally to partitioned data lake folder or append to db
+            # Push incrementally to all targets
             partition_date = start_time.strftime("%Y-%m-%d")
-            connector.push_dataframe(df, table_name, mode="append", partition_date=partition_date)
+            for connector in connectors:
+                connector.push_dataframe(df, table_name, mode="append", partition_date=partition_date)
             
     finally:
-        connector.close()
+        for connector in connectors:
+            connector.close()
         memory.save()
         
     logger.info("Phase B Complete. State advanced.")
@@ -183,8 +195,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Enterprise Synthetic PySpark Data Simulator")
     parser.add_argument("--mode", choices=["init", "stream"], required=True, 
                         help="'init' for Phase A (Big Bang) or 'stream' for Phase B (Incremental).")
-    parser.add_argument("--target", choices=["file", "parquet", "csv", "postgres", "snowflake", "oci_adb"], default="file",
-                        help="Target destination for output data.")
+    parser.add_argument("--target", choices=["file", "parquet", "csv", "postgres", "snowflake", "oracle", "oci_adb"], default=["file"], nargs='+',
+                        help="Target destination(s) for output data. You can specify multiple targets (e.g. csv parquet oracle oci_adb).")
     parser.add_argument("--rows", type=int, default=None,
                         help="Number of rows per table. Default: 1000 for init, 50 for stream.")
     parser.add_argument("--output-dir", type=str, default="output_data",
@@ -203,12 +215,12 @@ if __name__ == "__main__":
     # Hack to pass schema path via Spark conf since functions don't accept it easily
     spark_session.conf.set("spark.custom.schemaPath", args.schema)
     
-    # Global connector instantiation
-    global_connector = get_connector(args.target, output_dir=args.output_dir, s3_bucket=args.s3_bucket)
-    
     if args.mode == "init":
         rows = args.rows if args.rows is not None else 1000
-        run_phase_a(spark=spark_session, target=args.target, initial_rows=rows, specific_table=args.table)
+        run_phase_a(spark=spark_session, targets=args.target, initial_rows=rows, specific_table=args.table, 
+                    output_dir=args.output_dir, s3_bucket=args.s3_bucket)
     elif args.mode == "stream":
         rows = args.rows if args.rows is not None else 50
-        run_phase_b(spark=spark_session, target=args.target, incremental_rows=rows)
+        run_phase_b(spark=spark_session, targets=args.target, incremental_rows=rows, 
+                    output_dir=args.output_dir, s3_bucket=args.s3_bucket)
+

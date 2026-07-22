@@ -1,10 +1,10 @@
 {
-  "last_run": "2026-02-23T22:59:59.223119",
+  "last_run": "2026-07-22T11:06:02.313308",
   "tables": {
     "users": {
-      "last_id_numeric": 30,
-      "last_timestamp": "2025-01-01T04:50:00",
-      "row_count": 30
+      "last_id_numeric": 100,
+      "last_timestamp": "2025-01-01T16:30:00",
+      "row_count": 100
     }
   },
   "pools": {}

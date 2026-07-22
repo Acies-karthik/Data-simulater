@@ -38,7 +38,14 @@ class PostgresConnector(BaseConnector):
         print(f"Collecting Spark DataFrame to Pandas and pushing to Postgres table '{table_name}' (mode: {sql_mode})...")
         
         # Convert PySpark df to Pandas
-        pdf = df.toPandas()
+        if hasattr(df, "toPandas"):
+            try:
+                pdf = df.toPandas()
+            except Exception:
+                rows = [row.asDict() for row in df.collect()]
+                pdf = pd.DataFrame(rows)
+        else:
+            pdf = df
         
         # Ensure schema exists, then push to postgres
         with self.engine.begin() as conn:

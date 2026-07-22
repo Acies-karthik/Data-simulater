@@ -5,3 +5,5 @@ output_data/
 catalog.json
 Wallet_*/
 .DS_Store
+.venv/
+logs/

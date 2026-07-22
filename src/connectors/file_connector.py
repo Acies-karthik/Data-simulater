@@ -23,10 +23,11 @@ class FileConnector(BaseConnector):
         spark_mode = "append" if mode == "append" else "overwrite"
         
         # Build strict Hive-style partitioned path for Incremental Data Lakes
+        # Include the format in the path to avoid collision between CSV and Parquet
         if partition_date:
-            out_path = os.path.join(self.output_dir, table_name, f"load_date={partition_date}")
+            out_path = os.path.join(self.output_dir, self.format, table_name, f"load_date={partition_date}")
         else:
-            out_path = os.path.join(self.output_dir, table_name)
+            out_path = os.path.join(self.output_dir, self.format, table_name)
             
         print(f"Pushing Spark DataFrame to {out_path} as {self.format}...")
         
