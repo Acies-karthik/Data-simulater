@@ -6,9 +6,22 @@ import time
 import sys
 import os
 from dotenv import load_dotenv
-
-# Load credentials from single central .env file
 load_dotenv()
+
+# Databricks Pure-Python Environment Override
+try:
+    # Databricks exec() environment drops __file__, so we use os.getcwd()
+    import sys
+    script_dir = os.getcwd()
+    if script_dir not in sys.path:
+        sys.path.append(script_dir)
+        
+    from databricks_env import POSTGRES_URI
+    if POSTGRES_URI:
+        os.environ["POSTGRES_URI"] = POSTGRES_URI
+        print("Successfully loaded POSTGRES_URI from databricks_env.py")
+except ImportError:
+    print("Warning: databricks_env.py not found. Falling back to default os.environ logic.")
 
 # Fix for Windows PySpark worker 'Python not found' errors
 os.environ["PYSPARK_PYTHON"] = sys.executable
@@ -24,7 +37,6 @@ from src.memory import Memory
 from src.connectors.file_connector import FileConnector
 from src.connectors.postgres_connector import PostgresConnector
 from src.connectors.snowflake_connector import SnowflakeConnector
-from src.connectors.oracle_connector import OracleConnector
 from src.connectors.oci_adb_connector import OciAdbConnector
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -36,8 +48,6 @@ def get_connector(target: str, output_dir: str = "output_data", s3_bucket: str =
         return PostgresConnector()
     elif target == "snowflake":
         return SnowflakeConnector()
-    elif target == "oracle":
-        return OracleConnector()
     elif target == "oci_adb":
         return OciAdbConnector()
     elif target in ["file", "csv", "parquet"]:
@@ -51,14 +61,17 @@ def get_connector(target: str, output_dir: str = "output_data", s3_bucket: str =
     else:
         raise ValueError(f"Unknown target: {target}")
 
-def get_tables(schema_path="src/schema.json"):
+def get_tables(schema_path="src/schema.json", limit: int = None):
     """
-    Parses the schema blueprint and returns all tables.
+    Parses the schema blueprint and returns all tables (or first N if limit is set).
     Datasets are generated independently to maximize horizontal scalability.
     """
     with open(schema_path, "r") as f:
         schema = json.load(f)["tables"]
-    return [t["table_name"] for t in schema]
+    tables = [t["table_name"] for t in schema]
+    if limit is not None:
+        tables = tables[:limit]
+    return tables
 
 def init_spark():
     """Initialize a local PySpark session if running standalone. 
@@ -73,7 +86,7 @@ def init_spark():
         logger.error(f"Failed to initialize PySpark: {str(e)}\nPlease make sure PySpark is correctly installed.")
         raise
 
-def run_phase_a(spark: SparkSession, targets: list[str], initial_rows: int = 1000, specific_table: str = None, output_dir: str = "output_data", s3_bucket: str = None):
+def run_phase_a(spark: SparkSession, targets: list, initial_rows: int = 1000, specific_table: str = None, output_dir: str = "output_data", s3_bucket: str = None, num_tables: int = None):
     """
     Phase A: The Big Bang.
     """
@@ -88,7 +101,7 @@ def run_phase_a(spark: SparkSession, targets: list[str], initial_rows: int = 100
     
     start_time = datetime(2025, 1, 1, 0, 0, 0)
     
-    tables = get_tables(schema_path)
+    tables = get_tables(schema_path, limit=num_tables)
     if specific_table:
         if specific_table not in tables:
             raise ValueError(f"Table '{specific_table}' not found in schema blueprint.")
@@ -115,7 +128,6 @@ def run_phase_a(spark: SparkSession, targets: list[str], initial_rows: int = 100
             partition_date = start_time.strftime("%Y-%m-%d")
             for connector in connectors:
                 connector.push_dataframe(df, table_name, mode="replace", partition_date=partition_date)
-            
                      
     finally:
         for connector in connectors:
@@ -125,7 +137,7 @@ def run_phase_a(spark: SparkSession, targets: list[str], initial_rows: int = 100
     logger.info("Phase A Complete. State saved in catalog.json.")
 
 
-def run_phase_b(spark: SparkSession, targets: list[str], incremental_rows: int = 50, output_dir: str = "output_data", s3_bucket: str = None):
+def run_phase_b(spark: SparkSession, targets: list, incremental_rows: int = 50, output_dir: str = "output_data", s3_bucket: str = None, num_tables: int = None):
     """
     Phase B: The Heartbeat.
     Reads current state from memory and generates new incremental rows via PySpark.
@@ -141,7 +153,7 @@ def run_phase_b(spark: SparkSession, targets: list[str], incremental_rows: int =
     engine = SimulatorEngine(spark=spark, memory=memory, schema_path=schema_path)
     connectors = [get_connector(t, output_dir=output_dir, s3_bucket=s3_bucket) for t in targets]
     
-    tables = get_tables(schema_path)
+    tables = get_tables(schema_path, limit=num_tables)
     
     for connector in connectors:
         connector.connect()
@@ -192,6 +204,8 @@ if __name__ == "__main__":
                         help="Optional S3 bucket name (e.g., 'my-data-lake-bucket'). If provided, overrides output-dir to use s3a://")
     parser.add_argument("--table", type=str, default=None,
                         help="Specify a single table to generate (e.g., users). Default is all tables.")
+    parser.add_argument("--tables", type=int, default=None,
+                        help="Number of tables to generate (picks first N from schema.json). Overrides NUM_TABLES env var. Default: all tables.")
     parser.add_argument("--schema", type=str, default="src/schema.json",
                         help="Path to schema JSON. Default: src/schema.json")
                         
@@ -202,12 +216,21 @@ if __name__ == "__main__":
     # Hack to pass schema path via Spark conf since functions don't accept it easily
     spark_session.conf.set("spark.custom.schemaPath", args.schema)
     
+    # Resolve num_tables: CLI arg > ENV var > None (all tables)
+    num_tables = args.tables
+    if num_tables is None:
+        env_val = os.environ.get("NUM_TABLES")
+        if env_val:
+            try:
+                num_tables = int(env_val)
+            except ValueError:
+                pass
+
     if args.mode == "init":
         rows = args.rows if args.rows is not None else 1000
-        run_phase_a(spark=spark_session, targets=args.target, initial_rows=rows, specific_table=args.table, 
-                    output_dir=args.output_dir, s3_bucket=args.s3_bucket)
+        run_phase_a(spark=spark_session, targets=args.target, initial_rows=rows, specific_table=args.table,
+                    output_dir=args.output_dir, s3_bucket=args.s3_bucket, num_tables=num_tables)
     elif args.mode == "stream":
         rows = args.rows if args.rows is not None else 50
-        run_phase_b(spark=spark_session, targets=args.target, incremental_rows=rows, 
-                    output_dir=args.output_dir, s3_bucket=args.s3_bucket)
-
+        run_phase_b(spark=spark_session, targets=args.target, incremental_rows=rows,
+                    output_dir=args.output_dir, s3_bucket=args.s3_bucket, num_tables=num_tables)

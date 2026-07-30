@@ -946,6 +946,71 @@
       ]
     },
     {
+      "table_name": "sales",
+      "columns": [
+        {
+          "name": "id",
+          "type": "identifier",
+          "semantic_tag": "auto_increment_id"
+        },
+        {
+          "name": "date",
+          "type": "datetime",
+          "semantic_tag": "past_datetime"
+        },
+        {
+          "name": "country",
+          "type": "categorical",
+          "semantic_tag": "country_code"
+        },
+        {
+          "name": "state",
+          "type": "categorical",
+          "semantic_tag": "status_category"
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "semantic_tag": "city"
+        },
+        {
+          "name": "category",
+          "type": "categorical",
+          "semantic_tag": "generic_category"
+        },
+        {
+          "name": "product_name",
+          "type": "string",
+          "semantic_tag": "company_name"
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "unit_price",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "sales_amount",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        },
+        {
+          "name": "discount_percent",
+          "type": "number",
+          "semantic_tag": "age_numeric"
+        },
+        {
+          "name": "gain",
+          "type": "number",
+          "semantic_tag": "financial_numeric"
+        }
+      ]
+    },
+    {
       "table_name": "tickets",
       "columns": [
         {

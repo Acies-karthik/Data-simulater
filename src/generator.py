@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
@@ -8,7 +9,7 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType, 
 import pyspark.sql.functions as F
 
 from src.memory import Memory
-from src.data_quality import DataQualityInjector
+from src.data_quality import DataQualityInjector, load_rules_config
 
 class SimulatorEngine:
     """
@@ -22,6 +23,10 @@ class SimulatorEngine:
         self.seed = seed
         self.memory = memory if memory else Memory()
         self.schema_blueprint = self._load_schema(schema_path)
+        # Load rules config once at engine startup
+        rules_path = os.environ.get("RULES_CONFIG_PATH", "rules_config.json")
+        self.rules = load_rules_config(rules_path)
+        self.dq_injector = DataQualityInjector(rules=self.rules)
 
     def _load_schema(self, path="src/schema.json"):
         with open(path, "r") as f:
@@ -75,6 +80,7 @@ class SimulatorEngine:
         # Extract instance variables into local scope to avoid pickling `self` (and SparkContext) 
         # when broadcasting `generate_partitions` to workers.
         seed_val = self.seed
+        dq_injector = self.dq_injector
 
         # --- Spark Worker Execution ---
         
@@ -167,13 +173,16 @@ class SimulatorEngine:
                     elif tag == "company_name":
                         out_data[col_name] = [fake.company() for _ in range(n)]
                         
+                    elif tag == "city":
+                        out_data[col_name] = [fake.city() for _ in range(n)]
+                        
                     else:
                         out_data[col_name] = [fake.word() for _ in range(n)]
                 
                 pdf_out = pd.DataFrame(out_data)
                 
-                # Anomaly injection
-                pdf_out = DataQualityInjector.inject_anomalies(pdf_out, anomaly_rate)
+                # Anomaly injection (rules-driven)
+                pdf_out = dq_injector.inject_anomalies(pdf_out, anomaly_rate)
                     
                 yield pdf_out
 
