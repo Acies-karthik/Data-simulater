@@ -80,17 +80,19 @@ def init_spark():
         from pyspark.sql import SparkSession
         return SparkSession.builder \
             .appName("PreventualDataSimulator") \
-            .config("spark.sql.execution.arrow.pyspark.enabled", "true") \
+            .config("spark.sql.execution.arrow.pyspark.enabled", "false") \
+            .config("spark.sql.execution.pandas.convertToArrowArraySafely", "false") \
             .getOrCreate()
     except Exception as e:
         logger.error(f"Failed to initialize PySpark: {str(e)}\nPlease make sure PySpark is correctly installed.")
         raise
 
-def run_phase_a(spark: SparkSession, targets: list, initial_rows: int = 1000, specific_table: str = None, output_dir: str = "output_data", s3_bucket: str = None, num_tables: int = None):
+def run_phase_a(spark: SparkSession, targets: list, initial_rows: int = 1000, specific_table: str = None, output_dir: str = "output_data", s3_bucket: str = None, num_tables: int = None, anomaly_rate: float = 0.0):
     """
     Phase A: The Big Bang.
     """
     logger.info("Starting Phase A (Initial Load - The Big Bang) via PySpark Distributed Engine")
+
     
     memory = Memory()
     memory.clear()
@@ -121,8 +123,10 @@ def run_phase_a(spark: SparkSession, targets: list, initial_rows: int = 1000, sp
                 table_name=table_name,
                 num_rows=initial_rows,
                 start_time=start_time,
-                time_increment_seconds=600
+                time_increment_seconds=600,
+                anomaly_rate=anomaly_rate
             )
+
             
             # Persist to all targets using PySpark native tools
             partition_date = start_time.strftime("%Y-%m-%d")
@@ -137,11 +141,12 @@ def run_phase_a(spark: SparkSession, targets: list, initial_rows: int = 1000, sp
     logger.info("Phase A Complete. State saved in catalog.json.")
 
 
-def run_phase_b(spark: SparkSession, targets: list, incremental_rows: int = 50, output_dir: str = "output_data", s3_bucket: str = None, num_tables: int = None):
+def run_phase_b(spark: SparkSession, targets: list, incremental_rows: int = 50, output_dir: str = "output_data", s3_bucket: str = None, num_tables: int = None, anomaly_rate: float = 0.0):
     """
     Phase B: The Heartbeat.
     Reads current state from memory and generates new incremental rows via PySpark.
     """
+
     logger.info("Starting Phase B (Incremental Load - The Heartbeat) via PySpark")
     
     memory = Memory()
@@ -174,8 +179,10 @@ def run_phase_b(spark: SparkSession, targets: list, incremental_rows: int = 50, 
                 table_name=table_name,
                 num_rows=incremental_rows,
                 start_time=start_time,
-                time_increment_seconds=30
+                time_increment_seconds=30,
+                anomaly_rate=anomaly_rate
             )
+
             
             # Push incrementally to all targets
             partition_date = start_time.strftime("%Y-%m-%d")
@@ -206,6 +213,8 @@ if __name__ == "__main__":
                         help="Specify a single table to generate (e.g., users). Default is all tables.")
     parser.add_argument("--tables", type=int, default=None,
                         help="Number of tables to generate (picks first N from schema.json). Overrides NUM_TABLES env var. Default: all tables.")
+    parser.add_argument("--anomaly-rate", type=float, default=0.05,
+                        help="Rate of anomaly injection (0.0 to 1.0). Default: 0.05")
     parser.add_argument("--schema", type=str, default="src/schema.json",
                         help="Path to schema JSON. Default: src/schema.json")
                         
@@ -229,8 +238,9 @@ if __name__ == "__main__":
     if args.mode == "init":
         rows = args.rows if args.rows is not None else 1000
         run_phase_a(spark=spark_session, targets=args.target, initial_rows=rows, specific_table=args.table,
-                    output_dir=args.output_dir, s3_bucket=args.s3_bucket, num_tables=num_tables)
+                    output_dir=args.output_dir, s3_bucket=args.s3_bucket, num_tables=num_tables, anomaly_rate=args.anomaly_rate)
     elif args.mode == "stream":
         rows = args.rows if args.rows is not None else 50
         run_phase_b(spark=spark_session, targets=args.target, incremental_rows=rows,
-                    output_dir=args.output_dir, s3_bucket=args.s3_bucket, num_tables=num_tables)
+                    output_dir=args.output_dir, s3_bucket=args.s3_bucket, num_tables=num_tables, anomaly_rate=args.anomaly_rate)
+

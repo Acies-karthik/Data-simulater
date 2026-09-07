@@ -54,9 +54,9 @@ class DataQualityInjector:
 
     @staticmethod
     def generate_age_numeric(n):
-        """Generates realistic normal distributions for age."""
+        """Generates realistic normal distributions for age (as float64 for NaN compatibility)."""
         vals = np.random.normal(loc=35, scale=10, size=n)
-        return np.array([max(18, min(100, int(v))) for v in vals], dtype=np.int64)
+        return np.array([max(18.0, min(100.0, float(v))) for v in vals], dtype=np.float64)
 
     @staticmethod
     def generate_rating_numeric(n):
@@ -74,34 +74,37 @@ class DataQualityInjector:
 
     def inject_anomalies(self, pdf_out: pd.DataFrame, anomaly_rate: float = 0.05) -> pd.DataFrame:
         """
-        Applies enabled rule injections in sequence.
-
-        Rule: null_count_on_numerical
-          Randomly drops NULLs into numeric columns (≤30% of rows) to test
-          downstream completeness and resilience.
-
-        Rule: below_zero
-          Forces a small fraction of numeric values below zero.
-
-        Rule: zero_count_check
-          Injects zero values into numeric columns.
-
-        Rule: total_value_diff_on_numerical_columns
-          Introduces outlier spike values into numeric columns.
+        Applies enabled rule injections in sequence with aggressive thresholds
+        designed to explicitly trigger the target data quality platform.
         """
         numeric_cols = [
             c for c in pdf_out.columns
             if pd.api.types.is_numeric_dtype(pdf_out[c]) and c != pdf_out.columns[0]
         ]
+        date_cols = [
+            c for c in pdf_out.columns
+            if "date" in c.lower() or "time" in c.lower()
+        ]
 
-        # --- Rule: null_count_on_numerical ---
-        if self._rule("null_count_on_numerical") and anomaly_rate > 0:
-            null_rate = min(anomaly_rate, 0.30)  # cap at 30% per rule definition
+        # --- Rule 9: null_count_on_numerical ---
+        # Platform Threshold: > 30% nulls
+        if self._rule("null_count_on_numerical"):
+            null_rate = 0.35  # aggressively inject 35%
             mask = np.random.rand(len(pdf_out), len(numeric_cols)) < null_rate
             for i, col in enumerate(numeric_cols):
-                pdf_out.loc[mask[:, i], col] = None
+                pdf_out[col] = pdf_out[col].astype(float)  # ensure float so np.nan fits
+                pdf_out.loc[mask[:, i], col] = np.nan
 
-        # --- Rule: below_zero ---
+        # --- Rule 10: missing_date_values ---
+        # Platform Threshold: > 10% nulls
+        if self._rule("missing_date_values"):
+            null_rate = 0.15  # aggressively inject 15%
+            for col in date_cols:
+                mask = np.random.rand(len(pdf_out)) < null_rate
+                pdf_out.loc[mask, col] = None
+
+        # --- Rule 11: below_zero ---
+        # Platform Threshold: minimum < 0
         if self._rule("below_zero"):
             below_zero_rate = 0.05  # 5% of rows get a negative value
             for col in numeric_cols:
@@ -110,22 +113,29 @@ class DataQualityInjector:
                     pdf_out.iloc[idxs, pdf_out.columns.get_loc(col)] = \
                         pdf_out.iloc[idxs][col].abs() * -1
 
-        # --- Rule: zero_count_check ---
+        # --- Rule 6: zero_count_check ---
+        # Platform Threshold: 10%
         if self._rule("zero_count_check"):
-            zero_rate = 0.05
+            zero_rate = 0.15  # aggressively inject 15% zeros
             for col in numeric_cols:
                 idxs = np.where(np.random.rand(len(pdf_out)) < zero_rate)[0]
                 if len(idxs):
                     pdf_out.iloc[idxs, pdf_out.columns.get_loc(col)] = 0
 
-        # --- Rule: total_value_diff_on_numerical_columns ---
+        # --- Rule 8: total_value_diff_on_numerical_columns ---
+        # Platform Threshold: sum drops by > 30%
         if self._rule("total_value_diff_on_numerical_columns"):
-            spike_rate = 0.03
+            drop_rate = 0.50
             for col in numeric_cols:
-                idxs = np.where(np.random.rand(len(pdf_out)) < spike_rate)[0]
+                idxs = np.where(np.random.rand(len(pdf_out)) < drop_rate)[0]
                 if len(idxs):
-                    # Multiply by a large factor to create an outlier spike
+                    # Reduce value to 10% of its original to significantly lower the sum
                     pdf_out.iloc[idxs, pdf_out.columns.get_loc(col)] = \
-                        pdf_out.iloc[idxs][col] * np.random.uniform(10, 30)
+                        pdf_out.iloc[idxs][col] * 0.1
+
+        # Ensure object / string columns containing np.nan or 'nan' are None for PySpark/Snowflake NULL compatibility
+        for col in pdf_out.columns:
+            if not pd.api.types.is_numeric_dtype(pdf_out[col]):
+                pdf_out[col] = pdf_out[col].apply(lambda v: None if (pd.isna(v) or str(v).lower() == "nan") else v)
 
         return pdf_out

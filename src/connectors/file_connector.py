@@ -17,32 +17,36 @@ class FileConnector(BaseConnector):
         
     def push_dataframe(self, df, table_name: str, mode: str = "append", partition_date: str = None):
         """
-        Uses PySpark's highly optimized distributed native writers.
-        df is a pyspark DataFrame.
+        Exports DataFrame to a single file directly in the format directory.
+        e.g. output_data/csv/users.csv
         """
-        spark_mode = "append" if mode == "append" else "overwrite"
+        import pandas as pd
+        out_dir = os.path.join(self.output_dir, self.format)
+        os.makedirs(out_dir, exist_ok=True)
+        file_path = os.path.join(out_dir, f"{table_name}.{self.format}")
         
-        # Build strict Hive-style partitioned path for Incremental Data Lakes
-        # Include the format in the path to avoid collision between CSV and Parquet
-        if partition_date:
-            out_path = os.path.join(self.output_dir, self.format, table_name, f"load_date={partition_date}")
-        else:
-            out_path = os.path.join(self.output_dir, self.format, table_name)
-            
-        print(f"Pushing Spark DataFrame to {out_path} as {self.format}...")
+        print(f"Pushing single file to {file_path}...")
         
-        writer = df.write.mode(spark_mode)
+        # Convert to Pandas for single-file output
+        pdf = df.toPandas()
+        
+        pandas_mode = "a" if mode == "append" else "w"
+        header = True if pandas_mode == "w" or not os.path.exists(file_path) else False
         
         if self.format == "csv":
-            writer.option("header", "true").csv(out_path)
+            pdf.to_csv(file_path, mode=pandas_mode, header=header, index=False, na_rep="NULL")
         elif self.format == "json":
-            writer.json(out_path)
+            pdf.to_json(file_path, orient="records", lines=True, mode=pandas_mode)
         elif self.format == "parquet":
-            writer.parquet(out_path)
+            if pandas_mode == "a" and os.path.exists(file_path):
+                existing_pdf = pd.read_parquet(file_path)
+                pdf = pd.concat([existing_pdf, pdf], ignore_index=True)
+            pdf.to_parquet(file_path, index=False)
         else:
-            raise ValueError(f"Unsupported format {self.format} for Spark FileConnector.")
+            raise ValueError(f"Unsupported format {self.format} for FileConnector.")
             
-        print(f"✅ Successfully exported partition chunks to {out_path}.")
+        print(f"✅ Successfully exported {len(pdf)} rows to {file_path}.")
             
     def close(self):
         pass
+

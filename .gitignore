@@ -6,4 +6,13 @@ catalog.json
 Wallet_*/
 .DS_Store
 .venv/
-logs/
+logs/
+output_data_40_cols/
+generate_and_push_instance_*.py
+generate_fast.py
+generate_where_testing.py
+push_where_testing_*.py
+push_snowflake_40_cols.py
+create_custom_schema.py
+custom_schema.json
+upload_to_s3.py

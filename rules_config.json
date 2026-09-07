@@ -1,14 +1,14 @@
 {
   "_comment": "Toggle data quality rules on/off. Set to true to enable, false to disable.",
-  "taxonomy_changes": false,
-  "schema_changes": false,
-  "iqr_shift_detection": false,
-  "increase_in_unique_count_of_categorical_columns": false,
-  "increase_in_unique_count_of_id_column": false,
-  "zero_count_check": false,
-  "check_for_incremental_data_pull": false,
-  "total_value_diff_on_numerical_columns": false,
+  "taxonomy_changes": true,
+  "schema_changes": true,
+  "iqr_shift_detection": true,
+  "increase_in_unique_count_of_categorical_columns": true,
+  "increase_in_unique_count_of_id_column": true,
+  "zero_count_check": true,
+  "check_for_incremental_data_pull": true,
+  "total_value_diff_on_numerical_columns": true,
   "null_count_on_numerical": true,
-  "missing_date_values": false,
-  "below_zero": false
+  "missing_date_values": true,
+  "below_zero": true
 }
